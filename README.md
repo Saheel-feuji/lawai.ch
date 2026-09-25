@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# la wai | Pilates – website
 
-## Getting Started
+Redesign of [lawai.ch](https://lawai.ch) with the **exact content of the current site** (all three pages, same texts, same order).
 
-First, run the development server:
+**Stack:** Next.js 16 (React 19, App Router, static export) · Tailwind CSS 4 · Motion · Lenis smooth scrolling.
+Fonts (Archivo, Instrument Serif) are bundled at build time – no requests to Google.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build & deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build      # → static site in out/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Upload the contents of `out/` to any web host (the current WordPress hosting works; no Node server needed).
+`out/.htaccess` (Apache) redirects the old WordPress URLs `/uebersicht/` → `/kurse/` and `/contact/` → `/kontakt/`.
 
-## Learn More
+## Where things live
 
-To learn more about Next.js, take a look at the following resources:
+| What | File |
+| --- | --- |
+| Home texts (1:1 from lawai.ch) | `content/home.ts` |
+| Kurse texts | `content/courses.ts` |
+| Kontakt texts & form labels | `content/contact.ts` |
+| Footer, menu, phone, e-mail, page titles | `content/site.ts` |
+| Photos & logos (slots) | `content/images.ts` |
+| Colours, type sizes, animations | `app/globals.css` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Photos – just drop files in
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Put a photo into `public/images/` with one of these names and it **replaces the placeholder automatically**
+(`.jpg`, `.jpeg`, `.webp`, `.avif` or `.png`; ~2400 px long edge, JPG ~80 %). All photos are shown in black & white.
 
-## Deploy on Vercel
+| File name | Where |
+| --- | --- |
+| `hero` | Home – circle that grows into the full screen |
+| `ueber-mich` | Home – «Über mich» portrait (4:5) |
+| `events` | Home – events / teams (3:4) |
+| `was-ist-pilates-detail` | Home – small photo next to the intro (3:4) |
+| `was-ist-pilates` | Home – full-width photo |
+| `merkmal-1` … `merkmal-5` | Home – photo that follows the mouse over Kontrolle, Atmung, … |
+| `prinzip-1` … `prinzip-7` | Home – the 7 principle cards |
+| `kurse` | Kurse – full-screen header |
+| `kurs-ue50`, `kurs-reformer`, `kurs-strength`, `kurs-pilates` | Kurse – photo that follows the mouse over each course |
+| `kontakt` | Kontakt – left half |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The crop focus of each photo can be tuned with `position` in `content/images.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Logos:** `public/images/logo.(svg|png)` and `public/images/partner/…` (`white-wolves`, `gc-zuerich`, `tanzeria`,
+`healthart`, `lintharena`, `sihlpark`). Until these files exist, the logos are loaded from the current lawai.ch –
+**copy them into `public/images` before the old WordPress site is switched off.**
+
+The placeholder photos are free Unsplash images – replace them (especially the «Über mich» portrait) before going live.
+
+## Contact form
+
+A static site has no mail server:
+
+- Set `NEXT_PUBLIC_FORM_ENDPOINT` (e.g. a Formspree or Web3Forms URL) in `.env.local`, rebuild → messages are sent directly.
+- Without it, «Send» opens the visitor's e-mail app with the message filled in (to pilates@lawai.ch).
+
+## Notes
+
+- Texts are kept exactly as on lawai.ch, including small quirks: «Vereine .», «WAS IST PILATES ?», button «Send».
+- The intro (logo + circle) plays once per visit; later page views start directly.
+- All animations respect the system setting «reduce motion».

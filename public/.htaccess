@@ -1,0 +1,14 @@
+# Apache settings for the static export (copied into out/ on build).
+
+# Keep the old WordPress URLs working (Google, Instagram links, bookmarks).
+RedirectMatch 301 ^/uebersicht/?$ /kurse/
+RedirectMatch 301 ^/contact/?$ /kontakt/
+
+ErrorDocument 404 /404.html
+
+# Long-term caching for hashed build assets.
+<IfModule mod_headers.c>
+  <FilesMatch "^_next/static/">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
