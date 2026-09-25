@@ -16,11 +16,11 @@ export function ContactCta({ label }: { label: string }) {
               aria-hidden="true"
               className="absolute inset-0 bg-rose transition-[clip-path] duration-[1.1s] ease-[var(--ease-quart)] [clip-path:circle(0%_at_50%_50%)] group-hover:[clip-path:circle(75%_at_50%_50%)]"
             />
-            <span className="relative flex items-center justify-between gap-6 px-[1vw]">
-              <span className="text-mega text-[clamp(3rem,15.5vw,19rem)] transition-transform duration-1000 ease-[var(--ease-expo)] group-hover:translate-x-[2vw]">
+            <span className="relative flex items-center justify-between gap-6 px-[2vw]">
+              <span className="text-mega text-[clamp(3rem,13.5vw,17rem)]">
                 {label}
               </span>
-              <ArrowUpRight className="size-[11vw] shrink-0 transition-transform duration-1000 ease-[var(--ease-expo)] group-hover:rotate-45 lg:size-[9vw]" />
+              <ArrowUpRight className="size-[9vw] shrink-0 transition-transform duration-1000 ease-[var(--ease-expo)] group-hover:rotate-45 lg:size-[7vw]" />
             </span>
           </Link>
         </FadeUp>
